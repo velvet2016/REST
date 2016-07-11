@@ -4,6 +4,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Past;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class Purchase {
     protected String productName;
     @Min(value=1)
     protected int quantity;
+    @DateTimeFormat(pattern="dd.MM.yyyy")
     protected Date purchaseDate;
 
 

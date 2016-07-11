@@ -31,11 +31,11 @@ public class WebController {
     @Autowired
     private PurchaseService purchaseService;
 
-    @InitBinder
+/*    @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         binder.registerCustomEditor(Date.class, "purchaseDate", new CustomDateEditor(dateFormat, false));
-    }
+    }*/
 
     @RequestMapping("/home")
     public ModelAndView home() {
@@ -60,7 +60,7 @@ public class WebController {
 
     @RequestMapping(value = "/get_report", method = RequestMethod.GET)
     public ModelAndView getReport() {
-        return new ModelAndView("get_report");
+        return new ModelAndView("get_report","reportArgs", new ReportArguments());
     }
 
     @RequestMapping(value = "/report_list_purchases", method = RequestMethod.POST)

@@ -14,21 +14,23 @@
 </div>
 
 <form:form modelAttribute="purchase" action="purchase_added">
-    <div>
-        <p>
-            select product :<form:select path="productName" items="${products}"/>
-        </p>
-    </div>
+    <table>
+        <tr>
+            <td>select product :<form:select path="productName" items="${products}"/> </td>
+            <td> <form:errors path="productName" cssClass="error"/> </td>
 
-    <div>
-        <p>
-            enter quantity : <input type="text" name="quantity"/></div>
-    </p>
-    <div>
-        <p>
-            enter date(dd.mm.yyyy) : <input type="text" name="purchaseDate"/>
-        </p>
-    </div>
+        </tr>
+
+        <tr>
+            <td>enter quantity : <form:input type="text" path="quantity"/></td>
+            <td> <form:errors path="quantity" cssClass="error"/></td>
+
+        </tr>
+        <tr>
+            <td>enter date(dd.mm.yyyy) : <form:input type="text" path="purchaseDate"/></td>
+            <td><form:errors path="purchaseDate" cssClass="error"/></td>
+        </tr>
+    </table>
     <input type="submit" value="Add purchase">
 </form:form>
 

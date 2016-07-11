@@ -22,7 +22,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
         String sql = "insert into PURCHASES (product, quantity, purchase_date) " +
                 "values (?, ?, ? )";
-        jdbcTemplate.getJdbcOperations().update(sql, purchase.getProductName(),purchase.getQuantity(),purchase.getPurchaseDate());
-        return false;
+        int rowUpdated = jdbcTemplate.getJdbcOperations().update(sql, purchase.getProductName(), purchase.getQuantity(), purchase.getPurchaseDate());
+        return (rowUpdated == 1);
     }
 }

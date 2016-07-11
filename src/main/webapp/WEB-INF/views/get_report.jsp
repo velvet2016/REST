@@ -3,23 +3,25 @@
 <html>
 <head>
     <title>get_report</title>
+    <style>
+        .error {
+            color: #ff0000;
+        }
+    </style>
 </head>
 <body>
 <a href="home"><b>home</b></a>
-<div>
-    <p>
-        <form:errors path="reportArgs.*"></form:errors>
-    </p>
-</div>
-<form method="post" action="report_list_purchases">
 
-    <div>
-        <p>
-            enter number of months : <input type="text" name="monthCount">
-        </p>
-    </div>
+<form:form method="post" modelAttribute="reportArgs" action="report_list_purchases">
+
+    <table>
+        <tr>
+            <td>enter number of months : <form:input type="text" path="monthCount"/></td>
+            <td><form:errors path="monthCount" cssClass="error"/></td>
+        </tr>
+    </table>
 
     <input type="submit" value="Get Report">
-</form>
+</form:form>
 </body>
 </html>
