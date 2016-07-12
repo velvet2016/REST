@@ -1,6 +1,7 @@
 package com.lux.task.validators;
 
 import com.lux.task.dao.models.ReportArguments;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
 public class ReportArgumentsValidator {

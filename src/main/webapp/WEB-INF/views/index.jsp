@@ -9,7 +9,7 @@
 
     <li><a href="add_purchase">add purchase</a></li>
     <li><a href="get_report">get report</a></li>
-    <li><a href="rest/report/1">rest report</a></li>
+    <li><a href="rest/report?monthNumber=1">rest report</a></li>
 
 </ul>
 </body>

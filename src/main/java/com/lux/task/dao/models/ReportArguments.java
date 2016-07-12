@@ -5,11 +5,17 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.validation.constraints.Min;
 
 public class ReportArguments {
+    public ReportArguments() {
+    }
+
+    public ReportArguments(Integer monthCount) {
+        this.monthCount = monthCount;
+    }
 
     @Min(1)
-    private int monthCount;
+    private Integer monthCount;
 
-    public int getMonthCount() {
+    public Integer getMonthCount() {
         return monthCount;
     }
 

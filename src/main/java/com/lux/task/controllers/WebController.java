@@ -31,12 +31,6 @@ public class WebController {
     @Autowired
     private PurchaseService purchaseService;
 
-/*    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        binder.registerCustomEditor(Date.class, "purchaseDate", new CustomDateEditor(dateFormat, false));
-    }*/
-
     @RequestMapping("/home")
     public ModelAndView home() {
         return new ModelAndView("index");

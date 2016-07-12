@@ -1,10 +1,12 @@
 package com.lux.task.dao.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Past;
+import javax.validation.constraints.NotNull;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,10 +14,17 @@ import java.util.Date;
 @JsonAutoDetect
 public class Purchase {
 
+
+    private static final String DATE_FORMAT = "dd.MM.yyyy";
+
     protected String productName;
     @Min(value=1)
-    protected int quantity;
-    @DateTimeFormat(pattern="dd.MM.yyyy")
+    @NotNull
+    protected Integer quantity;
+
+    @DateTimeFormat(pattern=DATE_FORMAT)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern=DATE_FORMAT)
+    @NotNull
     protected Date purchaseDate;
 
 
@@ -27,7 +36,7 @@ public class Purchase {
         this.productName = produtcName;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 

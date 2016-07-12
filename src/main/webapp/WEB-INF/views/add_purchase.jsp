@@ -4,15 +4,10 @@
 <html>
 <head>
     <title>add_purchase</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body onload="createSelectInput()">
 <a href="home">home</a>
-<div>
-    <p>
-        <form:errors path="purchase.*"/>
-    </p>
-</div>
-
 <form:form modelAttribute="purchase" action="purchase_added">
     <table>
         <tr>

@@ -3,11 +3,7 @@
 <html>
 <head>
     <title>get_report</title>
-    <style>
-        .error {
-            color: #ff0000;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body>
 <a href="home"><b>home</b></a>
