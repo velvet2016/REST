@@ -1,9 +1,11 @@
 package com.lux.task.controllers;
 
 
+import com.lux.task.dao.models.Product;
 import com.lux.task.dao.models.Purchase;
 import com.lux.task.dao.models.ReportArguments;
 import com.lux.task.dao.models.ReportLine;
+import com.lux.task.dao.services.ProductService;
 import com.lux.task.dao.services.PurchaseService;
 import com.lux.task.dao.services.ReportService;
 import com.lux.task.exceptions.IncompatibleReportParameterException;
@@ -27,13 +29,26 @@ public class RestWsController {
 
     @Autowired
     private ReportService reportService;
+
+
     @Autowired
     private PurchaseService purchaseService;
 
+    @Autowired
+    private ProductService productService;
+
     @RequestMapping(value = "/rest/report", method = RequestMethod.GET, /*headers="Accept=application/json",*/ produces = {"application/json"})
     public List<ReportLine> getReport(@RequestParam("monthNumber") int monthNumber)  {
+        if (monthNumber < 1) {
+            throw new IncompatibleReportParameterException();
+        }
         return reportService.getReport(monthNumber);
     }
+    @RequestMapping(value = "/rest/products", method = RequestMethod.GET, /*headers="Accept=application/json",*/ produces = {"application/json"})
+    public List<String> getProducts() {
+        return productService.getListForUiSelect();
+    }
+
     @RequestMapping(value = "/rest/add_purchases", method = RequestMethod.POST, headers="Accept=application/json",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Purchase> addPurchases(@RequestBody List<Purchase> purchases)  {
@@ -47,7 +62,7 @@ public class RestWsController {
             MethodArgumentTypeMismatchException.class
     })
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public String handleException(HttpMessageNotReadableException exception) {
+    public String handleException(Exception exception) {
         return exception.getCause().toString();
     }
 
