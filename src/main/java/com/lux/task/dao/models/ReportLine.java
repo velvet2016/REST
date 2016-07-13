@@ -14,7 +14,8 @@ public class ReportLine extends Purchase{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ReportLine)) return false;
+        if (!super.equals(o)) return false;
 
         ReportLine that = (ReportLine) o;
 
@@ -24,8 +25,11 @@ public class ReportLine extends Purchase{
 
     @Override
     public int hashCode() {
-        long temp = Double.doubleToLongBits(sum);
-        return (int) (temp ^ (temp >>> 32));
+        int result = super.hashCode();
+        long temp;
+        temp = Double.doubleToLongBits(sum);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     @Override

@@ -60,4 +60,25 @@ public class Purchase {
                 ", purchaseDate='" + purchaseDate + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Purchase purchase = (Purchase) o;
+
+        if (!productName.equals(purchase.productName)) return false;
+        if (!quantity.equals(purchase.quantity)) return false;
+        return purchaseDate.equals(purchase.purchaseDate);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = productName.hashCode();
+        result = 31 * result + quantity.hashCode();
+        result = 31 * result + purchaseDate.hashCode();
+        return result;
+    }
 }
