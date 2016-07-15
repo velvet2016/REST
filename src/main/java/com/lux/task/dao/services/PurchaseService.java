@@ -13,7 +13,7 @@ public class PurchaseService {
     @Autowired
     private PurchaseDaoImpl dao;
 
-    public boolean storePurchase(Purchase purchase){
+    public int storePurchase(Purchase purchase){
         return dao.storePurchase(purchase);
     }
 

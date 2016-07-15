@@ -46,7 +46,7 @@ public class RestWsController {
     }
     @RequestMapping(value = "/rest/products", method = RequestMethod.GET, /*headers="Accept=application/json",*/ produces = {"application/json"})
     public List<String> getProducts() {
-        return productService.getListForUiSelect();
+        return null;//productService.getListForUiSelect();
     }
 
     @RequestMapping(value = "/rest/add_purchases", method = RequestMethod.POST, headers="Accept=application/json",

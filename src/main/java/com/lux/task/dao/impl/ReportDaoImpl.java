@@ -28,7 +28,7 @@ public class ReportDaoImpl implements ReportDao {
         return jdbcTemplate.getJdbcOperations().query(sql, new RowMapper<ReportLine>() {
             public ReportLine mapRow(ResultSet resultSet, int i) throws SQLException {
                 ReportLine reportLine = new ReportLine();
-                reportLine.setProductName(resultSet.getString("product"));
+                //reportLine.setProductName(resultSet.getString("product"));
                 reportLine.setPurchaseDate(resultSet.getDate("purchase_date"));
                 reportLine.setQuantity(resultSet.getInt("quantity"));
                 reportLine.setSum(resultSet.getDouble("sum"));

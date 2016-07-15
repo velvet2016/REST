@@ -11,8 +11,18 @@
 <form:form modelAttribute="purchase" action="purchase_added">
     <table>
         <tr>
-            <td>select product :<form:select path="productName" items="${products}"/> </td>
-            <td> <form:errors path="productName" cssClass="error"/> </td>
+
+<%--
+
+            <form:select path="state">
+                <form:options items="${states}" />
+            </form:select>
+--%>
+
+
+
+            <td>select product :<form:select path="product.id" items="${products}"/> </td>
+            <td> <form:errors path="product.id" cssClass="error"/> </td>
 
         </tr>
 

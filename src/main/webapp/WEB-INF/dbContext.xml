@@ -19,5 +19,9 @@
         <constructor-arg type="javax.sql.DataSource" ref="dataSource"/>
     </bean>
 
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
 
 </beans>

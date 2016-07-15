@@ -35,7 +35,7 @@ public class ReportLine extends Purchase{
     @Override
     public String toString() {
         return "{" +
-                "productName=" + productName  +
+                //"productName=" + productName  +
                 ", quantity=" + quantity +
                 ", purchaseDate=" + purchaseDate  +
                 ", sum=" + sum +
