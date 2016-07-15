@@ -47,6 +47,7 @@ public class WebController {
             return getAddPurchaseModelAndView();
         } else {
             ModelAndView purchaseAdded = new ModelAndView("purchase_added");
+            productService.fillProductInPurchaseByProductId(purchase);
             purchaseService.storePurchase(purchase);
             return purchaseAdded;
         }

@@ -13,7 +13,7 @@
 <h4>You added following purchase:</h4>
 <p>
 
-  product name: ${purchase.productName}
+  product name: ${purchase.product.name}
 </p>
 <p>
 

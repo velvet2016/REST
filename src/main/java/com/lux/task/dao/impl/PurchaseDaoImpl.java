@@ -21,7 +21,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    public static final String INSERT_PURCHASE = "insert into PURCHASES (product_id, quantity, purchase_date) " +
+    public static final String INSERT_PURCHASE = "insert into PURCHASE (product_id, quantity, purchase_date) " +
                                                                 "values (?, ?, ? )";
 
 /*    public int storePurchase(Purchase purchase) {
