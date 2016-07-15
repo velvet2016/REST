@@ -1,6 +1,16 @@
 package com.lux.task.dao.models;
 
+import java.util.Date;
+
 public class ReportLine extends Purchase{
+    public ReportLine() {
+    }
+
+    public ReportLine(Long id, Product product, Integer quantity, Date purchaseDate, double sum) {
+        super(id, product, quantity, purchaseDate);
+        this.sum = sum;
+    }
+
     private double sum;
 
     public double getSum() {
@@ -34,11 +44,12 @@ public class ReportLine extends Purchase{
 
     @Override
     public String toString() {
-        return "{" +
-                //"productName=" + productName  +
+        return "ReportLine{" +
+                "id=" + id +
+                ", product=" + product +
                 ", quantity=" + quantity +
-                ", purchaseDate=" + purchaseDate  +
+                ", purchaseDate=" + purchaseDate +
                 ", sum=" + sum +
-                "}";
+                '}';
     }
 }

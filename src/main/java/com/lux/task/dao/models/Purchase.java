@@ -77,5 +77,13 @@ public class Purchase {
         this.purchaseDate = purchaseDate;
     }
 
-
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", purchaseDate=" + purchaseDate +
+                '}';
+    }
 }

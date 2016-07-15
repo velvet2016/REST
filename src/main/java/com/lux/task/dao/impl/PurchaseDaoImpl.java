@@ -112,8 +112,6 @@ public class PurchaseDaoImpl implements PurchaseDao {
                     product,
                     rs.getInt("quantity"),
                     rs.getDate("purchase_date")
-
-
             );
         }
     }

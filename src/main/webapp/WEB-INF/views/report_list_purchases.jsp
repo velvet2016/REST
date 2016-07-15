@@ -20,6 +20,8 @@
         <div>
             <table>
                 <tr>
+                    <td>PURCHASE_ID</td>
+                    <td>PRODUCT_ID</td>
                     <td>PRODUCT_NAME</td>
                     <td>PRODUCT_COUNT</td>
                     <td>PURCHASE_DATE</td>
@@ -27,7 +29,9 @@
                 </tr>
             <c:forEach items="${report}" var="item">
                 <tr>
-                    <td>${item.productName}</td>
+                    <td>${item.id}</td>
+                    <td>${item.product.id}</td>
+                    <td>${item.product.name}</td>
                     <td>${item.quantity}</td>
                     <td>${item.purchaseDate}</td>
                     <td>${item.sum}</td>
