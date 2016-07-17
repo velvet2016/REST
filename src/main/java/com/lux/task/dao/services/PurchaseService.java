@@ -14,10 +14,10 @@ public class PurchaseService {
     private PurchaseDaoImpl dao;
 
     public int storePurchase(Purchase purchase){
-        return dao.storePurchase(purchase);
+        return dao.save(purchase);
     }
 
     public List<Purchase> storePurchases(List<Purchase> purchases) {
-        return dao.storePurchases(purchases);
+        return dao.saveBatch(purchases);
     }
 }

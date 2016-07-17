@@ -1,8 +1,6 @@
 package com.lux.task.dao.impl;
 
 import com.lux.task.dao.models.Product;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +30,10 @@ public class ProductDaoImplTest {
 
     @Rollback
     @Test()
-    public void saveProductAndGetProductByIdTest(){
+    public void saveAndGetByIdTest(){
         Product product = getTestProduct();
-        int id = dao.saveProduct(product);
-        Product productById = dao.getProductById(id);
+        int id = dao.save(product);
+        Product productById = dao.getById(id);
         assertEquals(product,productById);
     }
 
@@ -43,8 +41,8 @@ public class ProductDaoImplTest {
     @Test(expected = DuplicateKeyException.class)
     public void productNameUniqueConstraintTest(){
         Product product = getTestProduct();
-        dao.saveProduct(product);
-        dao.saveProduct(product);
+        dao.save(product);
+        dao.save(product);
     }
 
     @Rollback
@@ -52,7 +50,7 @@ public class ProductDaoImplTest {
     public void getAllTest(){
         List<Product> allBefore = dao.getAll();
         Product testProduct = getTestProduct();
-        dao.saveProduct(testProduct);
+        dao.save(testProduct);
         List<Product> allAfter = dao.getAll();
         allAfter.removeAll(allBefore);
         assertEquals(Arrays.asList(testProduct), allAfter);
@@ -60,16 +58,16 @@ public class ProductDaoImplTest {
 
     @Rollback
     @Test()
-    public void getProductByNameTest(){
+    public void getByNameTest(){
         Product product = getTestProduct();
-        dao.saveProduct(product);
-        Product productByName = dao.getProductByName(product.getName());
+        dao.save(product);
+        Product productByName = dao.getByName(product.getName());
         assertEquals(product,productByName);
     }
 
 
 
-    private Product getTestProduct() {
+    public static Product getTestProduct() {
         Product product = new Product();
         long rand = new Random().nextLong();
         product.setName("this is test product created for purpose of integration testing ProductDaoImpl. " +

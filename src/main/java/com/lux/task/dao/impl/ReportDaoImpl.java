@@ -37,10 +37,10 @@ public class ReportDaoImpl implements ReportDao {
                     rs.getDouble("product_price")
             );
             return new ReportLine(
-                    rs.getLong("purchase_id"),
+                    rs.getInt("purchase_id"),
                     product,
                     rs.getInt("quantity"),
-                    rs.getDate("purchase_date"),
+                    new java.util.Date(rs.getDate("purchase_date").getTime()),
                     rs.getDouble("sum")
             );
         }

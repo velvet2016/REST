@@ -24,18 +24,18 @@ public class ProductDaoImpl implements ProductDao {
         return jdbcTemplate.getJdbcOperations().query(sql, new ProductRowMapper());
     }
 
-    public Product getProductByName(String name) {
+    public Product getByName(String name) {
         String sql = "select * from PRODUCT pr where pr.product_name = ? ";
         return jdbcTemplate.getJdbcOperations().query(sql, new ProductRowMapper(), name).get(0);
     }
 
     @Override
-    public Product getProductById(int id) {
+    public Product getById(int id) {
         String sql = "select * from PRODUCT pr where pr.product_id = ? ";
         return jdbcTemplate.getJdbcOperations().query(sql, new ProductRowMapper(), id).get(0);
     }
 
-    public int saveProduct(final Product product) {
+    public int save(final Product product) {
         final PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {

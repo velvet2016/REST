@@ -4,7 +4,6 @@ import com.lux.task.dao.impl.ProductDaoImpl;
 import com.lux.task.dao.models.Product;
 import com.lux.task.dao.models.Purchase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -26,7 +25,7 @@ public class ProductService {
     }
 
     public void fillProductInPurchaseByProductId(Purchase purchase){
-        Product productById = dao.getProductById(purchase.getProduct().getId());
+        Product productById = dao.getById(purchase.getProduct().getId());
         purchase.setProduct(productById);
     }
 }

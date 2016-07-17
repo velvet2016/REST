@@ -44,13 +44,9 @@ public  class RestWsControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    private HttpMessageConverter mappingJackson2HttpMessageConverter;
-
-    @Qualifier("productService")
     @Autowired
     private ProductService productService;
 
-    @Qualifier("reportService")
     @Autowired
     private ReportService reportService;
 

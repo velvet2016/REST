@@ -1,7 +1,7 @@
 package com.lux.task.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lux.task.Constants;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,14 +22,14 @@ public class Purchase {
         this.purchaseDate = purchaseDate;
     }
 
-    public Purchase(Long id, Product product, Integer quantity, Date purchaseDate) {
+    public Purchase(Integer id, Product product, Integer quantity, Date purchaseDate) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.purchaseDate = purchaseDate;
     }
 
-    protected Long id;
+    protected Integer id;
     @NotNull
     protected Product product;
 
@@ -42,11 +42,11 @@ public class Purchase {
     @NotNull
     protected Date purchaseDate;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,12 +78,33 @@ public class Purchase {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Purchase)) return false;
+
+        Purchase purchase = (Purchase) o;
+
+        if (product != null ? !product.equals(purchase.product) : purchase.product != null) return false;
+        if (quantity != null ? !quantity.equals(purchase.quantity) : purchase.quantity != null) return false;
+        return purchaseDate != null ? purchaseDate.equals(purchase.purchaseDate) : purchase.purchaseDate == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = product != null ? product.hashCode() : 0;
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        result = 31 * result + (purchaseDate != null ? purchaseDate.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Purchase{" +
                 "id=" + id +
                 ", product=" + product +
                 ", quantity=" + quantity +
-                ", purchaseDate=" + purchaseDate +
+                ", purchaseDate=" + SIMPLE_DATE_FORMAT.format(purchaseDate) +
                 '}';
     }
 }

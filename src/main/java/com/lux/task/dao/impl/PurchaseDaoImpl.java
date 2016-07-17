@@ -23,20 +23,16 @@ public class PurchaseDaoImpl implements PurchaseDao {
     private NamedParameterJdbcTemplate jdbcTemplate;
     public static final String INSERT_PURCHASE = "insert into PURCHASE (product_id, quantity, purchase_date) " +
                                                                 "values (?, ?, ? )";
+    public static final String SQL_GET_ALL_PURCHASES = "select pc.purchase_id, " +
+            "pc.product_id, " +
+            "pc.quantity, " +
+            "pc.purchase_date, " +
+            "pr.product_name, " +
+            "pr.product_price \n" +
+            "from PURCHASE pc\n" +
+            "join PRODUCT pr on (pc.product_id=pr.product_id)";
 
-/*    public int storePurchase(Purchase purchase) {
-     *//*   String sql = "insert into purchases (product, quantity, purchase_date) " +
-                "values (:productName, :quantity, STR_TO_DATE(:date, '%Y-%m-%d') )";
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("productName", purchase.getProductName());
-        params.addValue("quantity", purchase.getQuantity());
-        params.addValue("date", purchase.getPurchaseDate());*//*
-
-        int rowUpdated = jdbcTemplate.getJdbcOperations().update(INSERT_PURCHASE *//*purchase.getProductName()*//*, purchase.getQuantity(), purchase.getPurchaseDate());
-        return (rowUpdated == 1);
-    }*/
-
-    public int storePurchase(final Purchase purchase) {
+    public int save(final Purchase purchase) {
         final PreparedStatementCreator psc = new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(final Connection connection) throws SQLException {
@@ -55,20 +51,21 @@ public class PurchaseDaoImpl implements PurchaseDao {
     }
 
     @Override
-    public Purchase getPurchaseById(int id) {
-        return null;
+    public Purchase getById(int id) {
+        String condition = "where pc.purchase_id = ?";
+        return jdbcTemplate.getJdbcOperations().query(SQL_GET_ALL_PURCHASES+condition, new PurchaseRowMapper(), id).get(0);
     }
 
 
     @Override
-    public List<Purchase> storePurchases(final List<Purchase> purchases) {
+    public List<Purchase> saveBatch(final List<Purchase> purchases) {
         int[] ints = jdbcTemplate.getJdbcOperations().batchUpdate(INSERT_PURCHASE, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Purchase purchase = purchases.get(i);
-                //ps.setString(1, purchase.getProductName());
+                ps.setInt(1, purchase.getProduct().getId());
                 ps.setInt(2, purchase.getQuantity());
-                ps.setDate(3, new Date(purchase.getPurchaseDate().getTime()));
+                ps.setDate(3, new java.sql.Date(purchase.getPurchaseDate().getTime()));
             }
 
 
@@ -88,15 +85,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
 
     @Override
     public List<Purchase> getAll() {
-        String sql = "select pc.purchase_id, " +
-                "pc.product_id, " +
-                "pc.quantity, " +
-                "pc.purchase_date, " +
-                "pr.product_name, " +
-                "pr.product_price \n" +
-                "from PURCHASE pc\n" +
-                "join PRODUCT pr on (pc.product_id=pr.product_id)";
-        return jdbcTemplate.getJdbcOperations().query(sql, new PurchaseRowMapper());
+        return jdbcTemplate.getJdbcOperations().query(SQL_GET_ALL_PURCHASES, new PurchaseRowMapper());
     }
 
     private static class PurchaseRowMapper implements RowMapper<Purchase> {
@@ -107,11 +96,12 @@ public class PurchaseDaoImpl implements PurchaseDao {
                     rs.getString("product_name"),
                     rs.getDouble("product_price")
             );
+
             return new Purchase(
-                    rs.getLong("purchase_id"),
+                    rs.getInt("purchase_id"),
                     product,
                     rs.getInt("quantity"),
-                    rs.getDate("purchase_date")
+                    new java.util.Date(rs.getDate("purchase_date").getTime())
             );
         }
     }
