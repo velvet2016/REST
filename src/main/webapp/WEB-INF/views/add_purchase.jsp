@@ -7,19 +7,10 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
 </head>
 <body onload="createSelectInput()">
-<a href="home">home</a>
+<a href="home"><b>home</b></a>
 <form:form modelAttribute="purchase" action="purchase_added">
     <table>
         <tr>
-
-<%--
-
-            <form:select path="state">
-                <form:options items="${states}" />
-            </form:select>
---%>
-
-
 
             <td>select product :<form:select path="product.id" items="${products}"/> </td>
             <td> <form:errors path="product.id" cssClass="error"/> </td>

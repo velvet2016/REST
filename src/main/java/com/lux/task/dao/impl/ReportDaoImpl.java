@@ -25,7 +25,7 @@ public class ReportDaoImpl implements ReportDao {
         String sql = "select pr.*,  ps.*,  pr.product_price*ps.quantity sum from PRODUCT pr\n" +
                 "join PURCHASE ps on pr.product_id = ps.product_id\n" +
                 "where ps.purchase_date>date_sub(now(), interval ? month) \n" +
-                "and ps.purchase_date<now() order by purchase_date desc";
+                "and ps.purchase_date<now() order by purchase_date desc, purchase_id desc";
         return jdbcTemplate.getJdbcOperations().query(sql, new ReportLineRowMapper(), numberOfMonths);
     }
     private static class ReportLineRowMapper implements RowMapper<ReportLine> {

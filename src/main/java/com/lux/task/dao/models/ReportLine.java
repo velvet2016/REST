@@ -13,6 +13,11 @@ public class ReportLine extends Purchase{
         this.sum = sum;
     }
 
+    public ReportLine(Purchase purchase) {
+        super(purchase.id, purchase.product, purchase.quantity, purchase.purchaseDate);
+        this.sum = product.getPrice()*purchase.getQuantity();
+    }
+
     private double sum;
 
     public double getSum() {

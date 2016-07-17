@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>report</title>
@@ -33,7 +34,7 @@
                     <td>${item.product.id}</td>
                     <td>${item.product.name}</td>
                     <td>${item.quantity}</td>
-                    <td>${item.purchaseDate}</td>
+                    <td><fmt:formatDate pattern="dd.MM.yyyy" value= "${item.purchaseDate}" /></td>
                     <td>${item.sum}</td>
                 </tr>
             </c:forEach>

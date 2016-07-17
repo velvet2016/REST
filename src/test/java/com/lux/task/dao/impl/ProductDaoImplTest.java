@@ -3,8 +3,6 @@ package com.lux.task.dao.impl;
 import com.lux.task.dao.models.Product;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,38 +18,34 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(locations = {"/applicationContext.xml"})
 @WebAppConfiguration
 @Transactional
-public class ProductDaoImplTest {
+public class ProductDaoImplTest extends AbstractDaoTest{
 
-
-    @Qualifier("productDaoImpl")
-    @Autowired
-    private ProductDaoImpl dao;
 
 
     @Rollback
     @Test()
     public void saveAndGetByIdTest(){
-        Product product = getTestProduct();
-        int id = dao.save(product);
-        Product productById = dao.getById(id);
+        Product product = getTestProductWithoutId();
+        int id = productDao.save(product);
+        Product productById = productDao.getById(id);
         assertEquals(product,productById);
     }
 
     @Rollback
     @Test(expected = DuplicateKeyException.class)
     public void productNameUniqueConstraintTest(){
-        Product product = getTestProduct();
-        dao.save(product);
-        dao.save(product);
+        Product product = getTestProductWithoutId();
+        productDao.save(product);
+        productDao.save(product);
     }
 
     @Rollback
     @Test()
     public void getAllTest(){
-        List<Product> allBefore = dao.getAll();
-        Product testProduct = getTestProduct();
-        dao.save(testProduct);
-        List<Product> allAfter = dao.getAll();
+        List<Product> allBefore = productDao.getAll();
+        Product testProduct = getTestProductWithoutId();
+        productDao.save(testProduct);
+        List<Product> allAfter = productDao.getAll();
         allAfter.removeAll(allBefore);
         assertEquals(Arrays.asList(testProduct), allAfter);
     }
@@ -59,15 +53,15 @@ public class ProductDaoImplTest {
     @Rollback
     @Test()
     public void getByNameTest(){
-        Product product = getTestProduct();
-        dao.save(product);
-        Product productByName = dao.getByName(product.getName());
+        Product product = getTestProductWithoutId();
+        productDao.save(product);
+        Product productByName = productDao.getByName(product.getName());
         assertEquals(product,productByName);
     }
 
 
 
-    public static Product getTestProduct() {
+    public static Product getTestProductWithoutId() {
         Product product = new Product();
         long rand = new Random().nextLong();
         product.setName("this is test product created for purpose of integration testing ProductDaoImpl. " +

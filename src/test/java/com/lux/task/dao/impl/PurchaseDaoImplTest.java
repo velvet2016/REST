@@ -1,12 +1,10 @@
 package com.lux.task.dao.impl;
 
-import com.lux.task.dao.models.Product;
 import com.lux.task.dao.models.Purchase;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,10 +18,10 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(locations = {"/applicationContext.xml"})
 @WebAppConfiguration
 @Transactional
-public class PurchaseDaoImplTest {
+public class PurchaseDaoImplTest extends AbstractDaoTest{
 
 
-    @Qualifier("purchaseDaoImpl")
+
     @Autowired
     private PurchaseDaoImpl dao;
 
@@ -75,13 +73,8 @@ public class PurchaseDaoImplTest {
     }
 
     private Purchase getTestPurchase(){
-        return new Purchase(getTestProduct(),1234567890, getRandDate());
+        return new Purchase(getTestProductAndSaveIt(),1234567890, getRandDate());
     }
 
-    private Product getTestProduct() {
-        Product testProduct = ProductDaoImplTest.getTestProduct();
-        int productId = productDao.save(testProduct);
-        testProduct.setId(productId);
-        return testProduct;
-    }
+
 }
