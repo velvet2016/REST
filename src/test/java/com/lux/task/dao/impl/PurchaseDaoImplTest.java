@@ -20,12 +20,8 @@ import static org.junit.Assert.assertEquals;
 @Transactional
 public class PurchaseDaoImplTest extends AbstractDaoTest{
 
-
-
     @Autowired
     private PurchaseDaoImpl dao;
-
-
 
     private Random random = new Random();
     private Date now = new Date();
@@ -39,7 +35,9 @@ public class PurchaseDaoImplTest extends AbstractDaoTest{
         int id = dao.save(purchase);
         purchase.setId(id);
         Purchase purchaseById = dao.getById(id);
-        assertEquals(purchase, purchaseById);
+        Date expected = purchase.getPurchaseDate();
+        Date actual = purchaseById.getPurchaseDate();
+        assertEquals(expected, actual);
 
     }
     @Rollback
@@ -68,8 +66,7 @@ public class PurchaseDaoImplTest extends AbstractDaoTest{
     }
 
     private Date getRandDate()  {
-        Date date = new Date(now.getTime() - (long) (random.nextDouble() * 31536000000000L));//31536000000000L = 1000 years in ms
-        return DateUtils.round(date, Calendar.DATE);
+        return new Date(now.getTime() - (long) (random.nextDouble() * 31536000000000L));//31536000000000L = 1000 years in ms
     }
 
     private Purchase getTestPurchase(){

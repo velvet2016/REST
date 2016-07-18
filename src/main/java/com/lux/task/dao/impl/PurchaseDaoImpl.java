@@ -41,7 +41,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                         Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, purchase.getProduct().getId());
                 ps.setInt(2, purchase.getQuantity());
-                ps.setDate(3, new java.sql.Date(purchase.getPurchaseDate().getTime()));
+                ps.setTimestamp(3, new java.sql.Timestamp(purchase.getPurchaseDate().getTime()));
                 return ps;
             }
         };
@@ -65,7 +65,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                 Purchase purchase = purchases.get(i);
                 ps.setInt(1, purchase.getProduct().getId());
                 ps.setInt(2, purchase.getQuantity());
-                ps.setDate(3, new java.sql.Date(purchase.getPurchaseDate().getTime()));
+                ps.setTimestamp(3, new java.sql.Timestamp(purchase.getPurchaseDate().getTime()));
             }
 
 
@@ -101,7 +101,7 @@ public class PurchaseDaoImpl implements PurchaseDao {
                     rs.getInt("purchase_id"),
                     product,
                     rs.getInt("quantity"),
-                    new java.util.Date(rs.getDate("purchase_date").getTime())
+                    new java.util.Date(rs.getTimestamp("purchase_date").getTime())
             );
         }
     }

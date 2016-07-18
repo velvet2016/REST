@@ -40,7 +40,7 @@ public class ReportDaoImpl implements ReportDao {
                     rs.getInt("purchase_id"),
                     product,
                     rs.getInt("quantity"),
-                    new java.util.Date(rs.getDate("purchase_date").getTime()),
+                    new java.util.Date(rs.getTimestamp("purchase_date").getTime()),
                     rs.getDouble("sum")
             );
         }

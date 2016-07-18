@@ -2,11 +2,13 @@ package com.lux.task.dao.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Calendar;
 import java.util.Date;
 
 import static com.lux.task.Constants.*;
@@ -19,14 +21,13 @@ public class Purchase {
     public Purchase(Product product, Integer quantity, Date purchaseDate) {
         this.product = product;
         this.quantity = quantity;
-        this.purchaseDate = purchaseDate;
+        setPurchaseDate(purchaseDate);
     }
 
     public Purchase(Integer id, Product product, Integer quantity, Date purchaseDate) {
+        this(product, quantity, purchaseDate);
         this.id = id;
-        this.product = product;
-        this.quantity = quantity;
-        this.purchaseDate = purchaseDate;
+
     }
 
     protected Integer id;
@@ -74,7 +75,7 @@ public class Purchase {
     }
 
     public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
+        this.purchaseDate = DateUtils.truncate(purchaseDate, Calendar.SECOND);
     }
 
     @Override
@@ -104,7 +105,7 @@ public class Purchase {
                 "id=" + id +
                 ", product=" + product +
                 ", quantity=" + quantity +
-                ", purchaseDate=" + SIMPLE_DATE_FORMAT.format(purchaseDate) +
+                ", purchaseDate=" + purchaseDate +
                 '}';
     }
 }

@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -26,11 +29,13 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 @Transactional
 public class ReportDaoImplTest extends AbstractDaoTest {
-    private Date now = DateUtils.truncate(new Date(), Calendar.DATE);
+    private Date now = Date.from(ZonedDateTime.now(ZoneOffset.UTC).toInstant());
+
 
     @Rollback
     @Test
     public void getReportFreshPurchaseIsInReportTest() throws Exception {
+
         int monthCount = 1;
         Product testProduct = getTestProductAndSaveIt();
         Purchase purchase = new Purchase(testProduct, 1, now);
@@ -44,7 +49,7 @@ public class ReportDaoImplTest extends AbstractDaoTest {
     public void getReportOldPurchaseIsNotInReportTest() throws Exception {
         int monthCount = 1;
         Product testProduct = getTestProductAndSaveIt();
-        Purchase purchase = new Purchase(testProduct, 1, DateUtils.addDays(now,-29));
+        Purchase purchase = new Purchase(testProduct, 1, DateUtils.addMonths(now,-1));
         purchaseDao.save(purchase);
         List<ReportLine> report = reportDao.getReport(monthCount);
         ReportLine reportLine = new ReportLine(purchase);
