@@ -37,16 +37,12 @@ public class RestWsController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "/rest/report", method = RequestMethod.GET, /*headers="Accept=application/json",*/ produces = {"application/json"})
+    @RequestMapping(value = "/rest/report", method = RequestMethod.GET, /*headers="Accept=application/json",*/ produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<ReportLine> getReport(@RequestParam("monthNumber") int monthNumber)  {
         if (monthNumber < 1) {
             throw new IncompatibleReportParameterException();
         }
         return reportService.getReport(monthNumber);
-    }
-    @RequestMapping(value = "/rest/products", method = RequestMethod.GET, /*headers="Accept=application/json",*/ produces = {"application/json"})
-    public List<String> getProducts() {
-        return null;//productService.getListForUiSelect();
     }
 
     @RequestMapping(value = "/rest/add_purchases", method = RequestMethod.POST, headers="Accept=application/json",
@@ -57,13 +53,12 @@ public class RestWsController {
 
 
 
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     @ExceptionHandler({IncompatibleReportParameterException.class,
             HttpMessageNotReadableException.class,
-            MethodArgumentTypeMismatchException.class
-    })
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+            MethodArgumentTypeMismatchException.class})
     public String handleException(Exception exception) {
-        return exception.getCause().toString();
+        return exception.getMessage();
     }
 
 

@@ -29,13 +29,13 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 @Transactional
 public class ReportDaoImplTest extends AbstractDaoTest {
-    private Date now = Date.from(ZonedDateTime.now(ZoneOffset.UTC).toInstant());
+    private Date now = DateUtils.addHours(new Date(),-12);
+
 
 
     @Rollback
     @Test
     public void getReportFreshPurchaseIsInReportTest() throws Exception {
-
         int monthCount = 1;
         Product testProduct = getTestProductAndSaveIt();
         Purchase purchase = new Purchase(testProduct, 1, now);

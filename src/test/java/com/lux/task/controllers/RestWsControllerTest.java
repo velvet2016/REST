@@ -15,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -23,6 +24,7 @@ import java.util.List;
 
 import static com.lux.task.Constants.REPORT_PARAMETER_SHOULD_BE_POSITIVE_INTEGER;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -57,25 +59,19 @@ public  class RestWsControllerTest {
     }
 
     @Test
-    public void testFirstApple() throws Exception {
-        mockMvc.perform(get("/rest/products"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$[0]", is("apple")));
-    }
-
-
-    @Test
     public void reportParamLessThan1() throws Exception {
-        ResultActions ra = mockMvc.perform(get("/rest/report").param("monthNumber","0"));
-        ra.andExpect(status().isBadRequest())
+        MvcResult result = mockMvc.perform(get("/rest/report").param("monthNumber", "0"))
+                .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$[0]", is(REPORT_PARAMETER_SHOULD_BE_POSITIVE_INTEGER)));
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertEquals(REPORT_PARAMETER_SHOULD_BE_POSITIVE_INTEGER,content);
     }
 
     @Test
     public void testFirstLineInReport() throws Exception {
-        int numberOfMonths = 1;
+        int numberOfMonths = 10000;
         List<ReportLine> report = reportService.getReport(numberOfMonths);
         if (!report.isEmpty()) {
             ResultActions ra = mockMvc.perform(get("/rest/report").param("monthNumber", String.valueOf(numberOfMonths)));
