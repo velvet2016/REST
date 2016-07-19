@@ -29,29 +29,38 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 @Transactional
 public class ReportDaoImplTest extends AbstractDaoTest {
-    private Date now = DateUtils.addHours(new Date(),-12);
-
-
 
     @Rollback
     @Test
     public void getReportFreshPurchaseIsInReportTest() throws Exception {
+
+        //arrange - creating purchase with date "now"
         int monthCount = 1;
         Product testProduct = getTestProductAndSaveIt();
-        Purchase purchase = new Purchase(testProduct, 1, now);
+        Purchase purchase = new Purchase(testProduct, 1, new Date());
+
+        //act - save purchase to DB, getting report for 1  month
         purchaseDao.save(purchase);
         List<ReportLine> report = reportDao.getReport(monthCount);
         ReportLine reportLine = new ReportLine(purchase);
+
+        //assert - check that report for last month contains purchase we stored
         assertEquals(1, Collections.frequency(report, reportLine));
     }
     @Rollback
     @Test
     public void getReportOldPurchaseIsNotInReportTest() throws Exception {
+
+        //arrange - creating purchase with date "one month ago"
         int monthCount = 1;
         Product testProduct = getTestProductAndSaveIt();
-        Purchase purchase = new Purchase(testProduct, 1, DateUtils.addMonths(now,-1));
+        Purchase purchase = new Purchase(testProduct, 1, DateUtils.addMonths(new Date(),-1));
+
+        //act - save purchase to DB, getting report for 1  month
         purchaseDao.save(purchase);
         List<ReportLine> report = reportDao.getReport(monthCount);
+
+        //assert - check that report for last month does not contain purchase we stored
         ReportLine reportLine = new ReportLine(purchase);
         assertFalse(report.contains(reportLine));
     }
