@@ -59,9 +59,9 @@ public class ReportDaoImplTest extends AbstractDaoTest {
         //act - save purchase to DB, getting report for 1  month
         purchaseDao.save(purchase);
         List<ReportLine> report = reportDao.getReport(monthCount);
+        ReportLine reportLine = new ReportLine(purchase);
 
         //assert - check that report for last month does not contain purchase we stored
-        ReportLine reportLine = new ReportLine(purchase);
         assertFalse(report.contains(reportLine));
     }
 }
