@@ -70,7 +70,7 @@ public class PurchaseDaoImplTest extends AbstractDaoTest{
     }
 
     private Purchase getTestPurchase(){
-        return new Purchase(getTestProductAndSaveIt(),1234567890, getRandDate());
+        return new Purchase(getTestProductAndSaveIt(),1234567890, DateUtils.truncate(getRandDate(), Calendar.SECOND));
     }
 
 

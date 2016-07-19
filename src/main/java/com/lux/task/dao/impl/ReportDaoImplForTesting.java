@@ -8,9 +8,11 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.lux.task.Constants.SIMPLE_DATE_FORMAT;
+import static com.lux.task.Constants.TIMEZONE;
 
 
 public class ReportDaoImplForTesting implements ReportDao {
@@ -18,7 +20,7 @@ public class ReportDaoImplForTesting implements ReportDao {
     private Date getDate() {
         Date date = null;
         try {
-            date = SIMPLE_DATE_FORMAT.parse("01.01.2016 01:00:00");
+            date = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss z").parse("01.01.2016 01:00:00 "+TIMEZONE);
         } catch (ParseException e) {
             e.printStackTrace();
         }

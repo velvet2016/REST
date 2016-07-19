@@ -15,13 +15,14 @@ import static com.lux.task.Constants.*;
 
 @JsonAutoDetect
 public class Purchase {
+
     public Purchase() {
     }
 
     public Purchase(Product product, Integer quantity, Date purchaseDate) {
         this.product = product;
         this.quantity = quantity;
-        this.purchaseDate = purchaseDate;
+        setPurchaseDate(purchaseDate);
     }
 
     public Purchase(Integer id, Product product, Integer quantity, Date purchaseDate) {
@@ -38,8 +39,8 @@ public class Purchase {
     @NotNull
     protected Integer quantity;
 
-    @DateTimeFormat(pattern= DATE_FORMAT)
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern= DATE_FORMAT)
+    @DateTimeFormat(pattern= UI_DATE_FORMAT)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern= DATE_FORMAT, timezone= TIMEZONE)
     @NotNull
     protected Date purchaseDate;
 
@@ -75,7 +76,7 @@ public class Purchase {
     }
 
     public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = purchaseDate;
+        this.purchaseDate = DateUtils.truncate(purchaseDate, Calendar.SECOND);
     }
 
     @Override
@@ -105,7 +106,8 @@ public class Purchase {
                 "id=" + id +
                 ", product=" + product +
                 ", quantity=" + quantity +
-                ", purchaseDate=" + purchaseDate +
+                ", purchaseDate=" + SIMPLE_DATE_FORMAT.format(purchaseDate) +
                 '}';
     }
+
 }

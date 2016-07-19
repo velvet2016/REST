@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import static com.lux.task.Constants.REPORT_PARAMETER_SHOULD_BE_POSITIVE_INTEGER;
+import static com.lux.task.Constants.SIMPLE_DATE_FORMAT;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -72,7 +73,13 @@ public  class RestWsControllerTest {
             ResultActions ra = mockMvc.perform(get("/rest/report").param("monthNumber", String.valueOf(numberOfMonths)));
             ra.andExpect(status().isOk())
                     .andExpect(content().contentType(contentType))
-                    .andExpect(jsonPath("$[0]", is(report.get(0))));
+                    .andExpect(jsonPath("$[0].purchaseDate", is(SIMPLE_DATE_FORMAT.format(report.get(0).getPurchaseDate()))))
+                    .andExpect(jsonPath("$[0].id", is(report.get(0).getId())))
+                    .andExpect(jsonPath("$[0].product.id", is(report.get(0).getProduct().getId())))
+                    .andExpect(jsonPath("$[0].product.name", is(report.get(0).getProduct().getName())))
+                    .andExpect(jsonPath("$[0].product.price", is(report.get(0).getProduct().getPrice())))
+                    .andExpect(jsonPath("$[0].sum", is(report.get(0).getSum())));
+
         }
     }
 
