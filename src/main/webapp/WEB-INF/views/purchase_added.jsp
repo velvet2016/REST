@@ -18,7 +18,7 @@
 </p>
 <p>
 
-    purchase date:<fmt:formatDate pattern="dd.MM.yyyy" value= "${purchase.purchaseDate}" />
+    purchase date:<fmt:formatDate pattern="dd.MM.yyyy hh:mm:ss Z zzzz" value= "${purchase.purchaseDate}" />
 </p>
 
 </body>

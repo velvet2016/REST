@@ -21,7 +21,7 @@ public class Purchase {
     public Purchase(Product product, Integer quantity, Date purchaseDate) {
         this.product = product;
         this.quantity = quantity;
-        setPurchaseDate(purchaseDate);
+        this.purchaseDate = purchaseDate;
     }
 
     public Purchase(Integer id, Product product, Integer quantity, Date purchaseDate) {
@@ -75,7 +75,7 @@ public class Purchase {
     }
 
     public void setPurchaseDate(Date purchaseDate) {
-        this.purchaseDate = DateUtils.truncate(purchaseDate, Calendar.SECOND);
+        this.purchaseDate = purchaseDate;
     }
 
     @Override

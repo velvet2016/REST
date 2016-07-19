@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"/applicationContext.xml"})
+@ContextConfiguration(locations = {"/applicationContext.xml","/testContext.xml"})
 @WebAppConfiguration
 public  class RestWsControllerTest {
 
@@ -43,9 +43,6 @@ public  class RestWsControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
-    @Autowired
-    private ProductService productService;
 
     @Autowired
     private ReportService reportService;
@@ -69,7 +66,7 @@ public  class RestWsControllerTest {
 
     @Test
     public void testFirstLineInReport() throws Exception {
-        int numberOfMonths = 10000;
+        int numberOfMonths = 10;
         List<ReportLine> report = reportService.getReport(numberOfMonths);
         if (!report.isEmpty()) {
             ResultActions ra = mockMvc.perform(get("/rest/report").param("monthNumber", String.valueOf(numberOfMonths)));
