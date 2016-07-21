@@ -3,7 +3,6 @@ package com.lux.task;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Date;
 import java.util.TimeZone;
 
 @Component
@@ -14,6 +13,5 @@ public class Config {
         System.setProperty("user.timezone", "UTC");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         System.out.println("curernt time zone: " + TimeZone.getDefault());
-
     }
 }

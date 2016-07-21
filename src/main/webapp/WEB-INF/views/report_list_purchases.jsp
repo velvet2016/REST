@@ -17,7 +17,6 @@
 <body>
 <a href="home"><b>home</b></a>
 <div  >
-
         <div>
             <table>
                 <tr>
@@ -34,7 +33,7 @@
                     <td>${item.product.id}</td>
                     <td>${item.product.name}</td>
                     <td>${item.quantity}</td>
-                    <td><fmt:formatDate pattern="dd.MM.yyyy" value= "${item.purchaseDate}" /></td>
+                    <td><fmt:formatDate pattern="dd.MM.yyyy hh:mm:ss Z zzzz" value= "${item.purchaseDate}" /></td>
                     <td>${item.sum}</td>
                 </tr>
             </c:forEach>
