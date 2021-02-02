@@ -1,17 +1,18 @@
 package com.lux.task.dao.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import static com.lux.task.Constants.DATE_FORMAT;
+import static com.lux.task.Constants.SIMPLE_DATE_FORMAT;
+import static com.lux.task.Constants.TIMEZONE;
+import static com.lux.task.Constants.UI_DATE_FORMAT;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Calendar;
+import java.util.Date;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.time.DateUtils;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import java.util.Calendar;
-import java.util.Date;
-
-import static com.lux.task.Constants.*;
 
 @JsonAutoDetect
 public class Purchase {
@@ -21,6 +22,18 @@ public class Purchase {
 
     public Purchase(Product product, Integer quantity, Date purchaseDate) {
         this.product = product;
+        this.quantity = quantity;
+        setPurchaseDate(purchaseDate);
+    }
+
+    public Purchase(int productId, Integer quantity, Date purchaseDate) {
+        this.product = new Product(productId);
+        this.quantity = quantity;
+        setPurchaseDate(purchaseDate);
+    }
+
+    public Purchase(int productId, Integer quantity) {
+        this.product = new Product(productId);
         this.quantity = quantity;
         setPurchaseDate(purchaseDate);
     }
