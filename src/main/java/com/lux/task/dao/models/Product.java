@@ -12,15 +12,19 @@ public class Product implements Serializable{
         this.price = price;
     }
 
-    private Integer id;
+    private int id;
     private String name;
     private double price;
 
-    public Integer getId() {
+    public Product(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

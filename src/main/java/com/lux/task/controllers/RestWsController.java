@@ -50,6 +50,13 @@ public class RestWsController {
         purchaseService.storePurchases(purchases);
     }
 
+    @RequestMapping(value = "purchases", method = RequestMethod.GET, headers = "Accept=application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<Purchase> getPurchases() {
+        return purchaseService.getAll();
+    }
+
     @RequestMapping(value = "products", method = RequestMethod.GET, headers = "Accept=application/json",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<Product> getAllProducts() {

@@ -1,13 +1,10 @@
 package com.lux.task.dao.services;
 
 import com.lux.task.dao.PurchaseDao;
-import com.lux.task.dao.impl.PurchaseDaoImpl;
 import com.lux.task.dao.models.Purchase;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class PurchaseService {
@@ -21,5 +18,9 @@ public class PurchaseService {
 
     public List<Purchase> storePurchases(List<Purchase> purchases) {
         return dao.saveBatch(purchases);
+    }
+
+    public List<Purchase> getAll() {
+        return dao.getAll();
     }
 }
